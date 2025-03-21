@@ -1,0 +1,84 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MaliyetApp.Views.MaterialPage.MaterialList"
+             NavigationPage.HasNavigationBar="False"
+             Title="" 
+             BackgroundColor="#F9FAFB">
+
+    <StackLayout>
+
+        <!-- Başlık Bölümü -->
+        <StackLayout Padding="20,20,20,10">
+            <Label 
+                Text="📦 Malzeme Yönetimi" 
+                FontSize="30" 
+                FontAttributes="Bold" 
+                HorizontalOptions="Center" 
+                TextColor="#2D3748" />
+            <Label 
+                Text="Malzemelerinizi kolayca organize edin." 
+                FontSize="16" 
+                TextColor="#718096" 
+                HorizontalOptions="Center" />
+        </StackLayout>
+
+        <!-- Yeni Malzeme Ekleme Butonu -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+            <Button 
+                Text="➕ Malzeme Ekle" 
+                BackgroundColor="#4CAF50" 
+                TextColor="White" 
+                FontSize="16" 
+                CornerRadius="25" 
+                Padding="10,5" 
+                WidthRequest="180" 
+                Clicked="Button_Clicked" />
+        </StackLayout>
+
+        <!-- Sütun Başlıkları -->
+        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,Auto" Margin="20,10,20,10">
+            <Label 
+                Grid.Column="0" 
+                Text="Adı" 
+                FontAttributes="Bold" 
+                TextColor="#4A5568" 
+                HorizontalOptions="Start" 
+                FontSize="16" />
+            <Label 
+                Grid.Column="1" 
+                Text="Ölçüsü" 
+                FontAttributes="Bold" 
+                TextColor="#4A5568" 
+                HorizontalOptions="Center" 
+                FontSize="16" />
+        </Grid>
+
+        <!-- Malzeme Listesi -->
+        <CollectionView x:Name="materialList" ItemsSource="{Binding Material}" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="{OnIdiom Desktop=15, Phone=0, Tablet=0}" Padding="10" HasShadow="{OnIdiom Desktop=true, Phone=false, Tablet=false}" Margin="20,5,20,5" BackgroundColor="White">
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,Auto">
+                            <Label 
+                                Grid.Column="0" 
+                                Text="{Binding Name}" 
+                                FontSize="16" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Start" 
+                                TextColor="#2D3748" />
+                            <Label 
+                                Grid.Column="1" 
+                                Text="{Binding Type}" 
+                                FontSize="16" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Center" 
+                                TextColor="#2D3748" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </StackLayout>
+
+</ContentPage>

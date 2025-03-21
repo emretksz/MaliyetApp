@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model ="clr-namespace:MaliyetApp.Libs.Models" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             NavigationPage.BackButtonTitle="Geri Dön" 
+            xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Core;assembly=CommunityToolkit.Maui.Core"
+
+             x:DataType="model:Sale" Title="" 
+             NavigationPage.HasBackButton="True"  
+             x:Class="MaliyetApp.MainPage"> 
+
+    <ScrollView x:Name="scrollview"  >
+        <StackLayout Padding="0,20" Spacing="20">
+            <!--  Search and filter  -->
+            <Grid
+                Padding="20,0"
+                ColumnDefinitions="Auto,Auto,*" 
+                ColumnSpacing="5">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                    <Label Text="Arama Yap: " FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Padding="0,0,20,0" IsVisible="{OnIdiom Desktop=true, Phone=false,Tablet=false}">
+                        
+                    </Label>
+                    <Border  WidthRequest="{OnIdiom Desktop=300,Phone=230,Tablet=230}" Background="White" >
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="13" />
+                        </Border.StrokeShape>
+                        <SearchBar  x:Name="searchbar" FontSize="{OnIdiom Phone=12, Desktop=20,Tablet=20}"     Placeholder="Arama Yap"        HorizontalOptions="{OnIdiom Phone=StartAndExpand, Desktop=Center,Tablet=StartAndExpand}"  SearchButtonPressed="searchbar_SearchButtonPressed"   TextChanged="searchbar_TextChanged_1"
+                         Margin="0" WidthRequest="{OnIdiom Desktop=300,Phone=230,Tablet=230}"  Background="White" Unfocused="searchbar_Unfocused" ></SearchBar>
+                    </Border>
+                </StackLayout>
+
+
+                <Border  IsVisible="{OnIdiom Desktop=true, Phone=false,Tablet=false}"
+                    Grid.Column="1" HorizontalOptions="CenterAndExpand"
+                    Padding="8"
+                    HeightRequest="48"
+                    StrokeThickness="1.5"
+                    WidthRequest="48">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="11" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AramaYap"></TapGestureRecognizer>
+                    </Border.GestureRecognizers>
+                    <Image
+                        Aspect="AspectFit"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" Source="search.png">
+                        
+                        <!--<Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialDesign"
+                                Glyph="{x:Static views:MaterialDesignIcons.ExpandMore}"
+                                Color="{DynamicResource BaseIconColor}" />
+                        </Image.Source>-->
+                    </Image>
+                </Border>
+               
+                    <Button HorizontalOptions="End" 
+                    Grid.Column="2" Text="➕ Maliyet Oluştur"  Background="#4CAF50" FontSize="{OnIdiom Phone=12, Desktop=16,Tablet=12}" Clicked="Button_Clicked" CornerRadius="25"></Button>
+            </Grid>
+
+            <!--  Categories  -->
+            <!--<Grid Padding="20,0,0,0" HeightRequest="42">
+                <CollectionView ItemsSource="{Binding Categories}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Category">
+                            <Border
+                                Margin="0"
+                                Padding="16,2"
+                                HeightRequest="42"
+                                WidthRequest="120"
+                                Stroke="{DynamicResource FrameBorder}"
+                                StrokeThickness="1">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <Label
+                                    Grid.Column="1"
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Name}"
+                                    TextColor="{DynamicResource BaseLightTextColor}"
+                                    VerticalOptions="Center" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>-->
+
+            <BoxView HeightRequest="1"></BoxView>
+         
+
+            <!--<CollectionView
+                x:Name="ProdcutList"
+                Margin="20,0" 
+                 ItemSizingStrategy="MeasureFirstItem"
+                SelectionMode="Single">-->
+            <CollectionView
+                x:Name="ProdcutList"
+                Margin="20,0"
+                ItemSizingStrategy="MeasureAllItems" VerticalScrollBarVisibility="{OnIdiom Phone=Never,Tablet=Never}"
+                SelectionMode="Single">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="15"
+                        Orientation="Vertical" 
+                        
+                        Span="{OnIdiom Desktop='4',
+                                       Phone='2',
+                                       Tablet='2'}"
+                        VerticalItemSpacing="{OnIdiom Desktop='10',
+                                       Phone='0',
+                                       Tablet='5'}" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Padding="0" 
+                            StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <Rectangle RadiusX="30" RadiusY="30" />
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Opacity="0.1" />
+                            </Border.Shadow>
+
+                            <VerticalStackLayout Spacing="0">
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </Grid.GestureRecognizers>
+                                    <Border Margin="0" StrokeThickness="0">
+                                        <Border.StrokeShape>
+                                            <Rectangle RadiusX="30" RadiusY="30" />
+                                        </Border.StrokeShape>
+                                        <!--<Image
+                                            Aspect="Fill"
+                                            HeightRequest="{OnIdiom Desktop=150,Phone=100}"
+                                            Source="{Binding Product.ImageURL}">
+
+                                        </Image>-->
+                                        
+                                        <ffimageloading:CachedImage
+                                       Source="{Binding Product.ImageURL}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="150"
+                                       WidthRequest="150"
+                                       LoadingPlaceholder="emptyicon.png"
+                                       ErrorPlaceholder="emptyicon.png" />
+                                  
+                                    </Border>
+
+                                    <StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                        <Border
+                                                Margin="15"
+                                                Background="#80000000"
+                                                HeightRequest="{OnIdiom Desktop=38,Phone=24,Tablet=24}"
+                                                HorizontalOptions="Center"
+                                                StrokeThickness="0"
+                                                VerticalOptions="End"
+                                                 WidthRequest="{OnIdiom Desktop=38,Phone=24,Tablet=24}">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="20" />
+                                            </Border.StrokeShape>
+
+                                            <Image Aspect="AspectFit" VerticalOptions="CenterAndExpand" Source="downbutton.png">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="DownloadSale"></TapGestureRecognizer>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+
+                                        </Border>
+
+                                        <Border
+                                               Background="#80000000"
+                                       HeightRequest="{OnIdiom Desktop=38,Phone=24,Tablet=24}"
+                                               HorizontalOptions="Center"
+                                               StrokeThickness="0"
+                                               VerticalOptions="End"
+                                               WidthRequest="{OnIdiom Desktop=38,Phone=24,Tablet=24}">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="20" />
+                                            </Border.StrokeShape>
+
+                                            <Image Aspect="AspectFit" VerticalOptions="CenterAndExpand" Source="deleteicon.png">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="Sil"></TapGestureRecognizer>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+
+                                        </Border>
+                                    
+                                    </StackLayout>
+                             
+                                </Grid>
+
+                                <Grid
+                                    Padding="15,0,15,10"
+                                    RowDefinitions="Auto,Auto,Auto,Auto" >
+
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}" ></TapGestureRecognizer>
+                                    </Grid.GestureRecognizers>
+                                    <StackLayout Orientation="Horizontal" Grid.Row="0">
+                                        <Label
+                                             FontAttributes="Bold"
+                                                FontSize="{OnIdiom Desktop=20,Phone=10,Tablet=10}" 
+                                                HorizontalOptions="Start"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Text="{Binding Product.Brand}"
+                                                VerticalOptions="Center" >
+
+                                            <Label.Padding>
+                                                <OnIdiom x:TypeArguments="Thickness">
+                                                    <OnIdiom.Phone>5,5,5,5</OnIdiom.Phone>
+                                                    <OnIdiom.Desktop>15</OnIdiom.Desktop>
+                                                </OnIdiom>
+                                            </Label.Padding>
+                                            
+                                        </Label>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Grid.Row="1">
+                                        <Label
+                                             FontAttributes="Bold"
+                                            FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}"
+                                            Padding="5,0,5,10"
+                                             Text="{OnIdiom Desktop=Model Numarası,Phone=Model:,Tablet=Model:}"  LineBreakMode="WordWrap"
+                                             VerticalOptions="End" />
+                                          <Label
+                                             FontAttributes="Bold"
+                                            FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}"
+                                              Padding="0,10,10,10" LineBreakMode="WordWrap"
+                                             Text="{Binding Product.ModelNumber}"
+                                             VerticalOptions="End" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Grid.Row="2" Padding="0" >
+                                        <Label
+                                            FontAttributes="Bold"
+                                          FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}" Padding="5"
+                                            Text="Yaş/Size:" LineBreakMode="WordWrap"
+                                            VerticalOptions="End" />
+                                                                        <Label
+                                            FontAttributes="Bold"
+                                        FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}" Padding="5"  LineBreakMode="WordWrap"
+                                            Text="{Binding Product.YasSize}"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="{OnIdiom Desktop=End,Phone=Start,Tablet=Start}" Grid.Row="3" Padding="0" >
+                                        <Label 
+                                          FontAttributes="Bold"
+                                    FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}" Padding="5"
+                                          Text="Satış Fiyatı: "  LineBreakMode="WordWrap"
+                                          VerticalOptions="End" />
+                                        <Label
+                                              FontAttributes="Bold"
+                                              HorizontalOptions="End"
+                                            FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}"  LineBreakMode="WordWrap"
+                                              Padding="5"
+                                              Text="{Binding SatisFiyati, StringFormat='{0:F2}'}"
+                                              VerticalOptions="End" />
+
+                                    </StackLayout>
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <StackLayout HeightRequest="0" />
+                </CollectionView.Footer>
+
+            </CollectionView>
+            <ActivityIndicator 
+          x:Name="loading" HeightRequest="60" WidthRequest="60"
+            Color="Blue" IsRunning="True" IsVisible="False"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

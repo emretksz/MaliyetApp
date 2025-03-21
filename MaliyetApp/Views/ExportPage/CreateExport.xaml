@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MaliyetApp.Views.ExportPage.CreateExport"
+             Title="">
+
+    <ScrollView x:Name="scrollview" Scrolled="scrollview_Scrolled">
+        <StackLayout Padding="0,20" Spacing="20">
+
+            <!--  Search and filter  -->
+            <Grid
+                Padding="20,0"
+                ColumnDefinitions="Auto,Auto,*" 
+                ColumnSpacing="5">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                    <Label Text="Arama Yap: " IsVisible="{OnIdiom Desktop=true,Phone=false,Tablet=false}"  FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Padding="20,0,20,0"></Label>
+                    <!--<Border >
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="13" />
+                        </Border.StrokeShape>
+                        <SearchBar  x:Name="searchbar" Placeholder="Arama yap" FontSize="{OnIdiom Phone=12, Desktop=20}"  HorizontalOptions="FillAndExpand" Margin="0" WidthRequest="{OnIdiom Desktop=300,Phone=200}" SearchButtonPressed="searchbar_SearchButtonPressed" TextChanged="searchbar_TextChanged_1" ></SearchBar>
+                    </Border>-->
+
+                    <Border HeightRequest="{OnIdiom Phone=40, Tablet=40, Desktop=50}"  Background="White"
+                        WidthRequest="{OnIdiom Phone=240,Tablet=240, Desktop=300}" 
+                        HorizontalOptions="Start" 
+                        VerticalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="13" />
+                        </Border.StrokeShape>
+                        <SearchBar x:Name="searchbar" 
+                           Placeholder="Arama yap" 
+                           FontSize="{OnIdiom Phone=12,Tablet=12, Desktop=20}"  Background="White"
+                           HorizontalOptions="FillAndExpand" 
+                           VerticalOptions="Center" 
+                           WidthRequest="{OnIdiom Desktop=300, Phone=240, Tablet=240}" 
+                           SearchButtonPressed="searchbar_SearchButtonPressed" 
+                           TextChanged="searchbar_TextChanged_1" />
+                    </Border>
+                </StackLayout>
+
+
+                <Border  IsVisible="{OnIdiom Desktop=true,Phone=false,Tablet=false}"
+                    Grid.Column="1" HorizontalOptions="CenterAndExpand"
+                    Padding="8"
+                    HeightRequest="48"
+                    StrokeThickness="1.5"
+                    WidthRequest="48">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="11" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AramaYap"></TapGestureRecognizer>
+                    </Border.GestureRecognizers>
+                    <Image
+                        Aspect="AspectFit"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" Source="search.png">
+                    </Image>
+                </Border>
+                <!--<Border  
+                    StrokeThickness="1.5" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="11" />
+                    </Border.StrokeShape>
+                </Border>-->
+
+                    <Button HorizontalOptions="End" 
+                    Grid.Column="2" Text="➕ Teklif Oluştur" BackgroundColor="#4CAF50" FontSize="{OnIdiom Phone=12, Tablet=12, Desktop=16}" CornerRadius="25" Clicked="Button_Clicked"></Button>
+            </Grid>
+
+
+            <BoxView HeightRequest="1"></BoxView>
+
+            <CollectionView
+                x:Name="ProdcutList"
+                Margin="20,0"
+                                ItemSizingStrategy="MeasureFirstItem"
+
+                SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="15"
+                        Orientation="Vertical"
+                        Span="{OnIdiom Desktop='4',
+                                       Phone='2',
+                                       Tablet='2'}"
+                        VerticalItemSpacing="1" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Padding="0"
+                            StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <Rectangle RadiusX="30" RadiusY="30" />
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Opacity="0.1" />
+                            </Border.Shadow>
+                           
+
+                            <VerticalStackLayout Spacing="12">
+                             <Border
+                                  Margin="15"
+                                  Padding="2"
+                                  Background="#80000000"
+                                  HeightRequest="24"
+                                  HorizontalOptions="End"
+                                 
+                                  StrokeThickness="0"
+                                  VerticalOptions="Start"
+                                  WidthRequest="24">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+
+                                    <Image Aspect="AspectFit" VerticalOptions="CenterAndExpand" Source="deleteicon.png">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="sil" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                </Border>
+                                <Grid
+                                    Padding="15,0,15,10" Background="#E3E4E8"
+                                    RowDefinitions="Auto,Auto,Auto,Auto" >
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer  Tapped="teklifOlustur" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </Grid.GestureRecognizers>
+                                    <StackLayout Orientation="Vertical" Grid.Row="0">
+                                        
+                                        <Label
+                                             FontAttributes="Bold"
+                                              FontSize="{OnIdiom Desktop=20,Phone=10,Tablet=10}" 
+                                            Padding="15"
+                                                HorizontalOptions="Start"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="2"
+                                                Text="{Binding Title}"
+                                                VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" Grid.Row="1" >
+                                        <Label
+                                             FontAttributes="Bold"
+                                             FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}" Padding="10"
+                                             Text="Teklif Açıklaması:"
+                                             VerticalOptions="End" />
+                                        <Label
+                                             FontAttributes="Bold" 
+                                                  FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}" Padding="10,0,10,10"
+                                             Text="{Binding Description}" LineBreakMode="TailTruncation" MaxLines="2"
+                                             VerticalOptions="End" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Grid.Row="2" Padding="0" >
+                                        <Label
+                                            FontAttributes="Bold"
+                                                 FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}" IsVisible="{OnIdiom Desktop=true,Phone=false,Tablet=false}" Padding="10"
+                                            Text="Oluşturma Tarihi"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            FontAttributes="Bold"  IsVisible="{OnIdiom Desktop=true,Phone=false,Tablet=false}"
+                                                 FontSize="{OnIdiom Desktop=12,Phone=10,Tablet=10}"  Padding="0,10,10,10"
+                                            Text="{Binding Creationtime}"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator 
+x:Name="loading" HeightRequest="60" WidthRequest="60"
+  Color="Blue" IsRunning="True" IsVisible="False"
+  VerticalOptions="Center"
+  HorizontalOptions="Center" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

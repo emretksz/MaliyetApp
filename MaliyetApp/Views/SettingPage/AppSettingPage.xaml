@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MaliyetApp.Views.SettingPage.AppSettingPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="#f9f9fb"
+ NavigationPage.HasNavigationBar="False"
+ Title=""
+             >
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20">
+        <!-- Başlık -->
+        <Label Text="Yıl ve Sistem Ayarları"
+               FontSize="28"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#1E1E2F"
+               VerticalOptions="Start" />
+        
+
+
+        <!-- İçerik -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20">
+                <!-- Yıl Seçimi -->
+                <Border StrokeThickness="1" Stroke="#E3E4E8" Padding="20" BackgroundColor="White">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Yıl Ayarı"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="#333"
+                               HorizontalOptions="Start" />
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="Yıl:"
+                                   FontSize="18"
+                                   VerticalOptions="Center"
+                                   TextColor="#555" />
+                            <DatePicker x:Name="datePicker"
+                                        Format="yyyy"
+                                        BackgroundColor="#f2f2f5"
+                                        MinimumDate="2024-01-01"
+                                        MaximumDate="2100-12-31"
+                                        HorizontalOptions="FillAndExpand"
+                                        WidthRequest="200"  DateSelected="datePicker_DateSelected"
+                                        TextColor="#1E1E2F"
+                                        Margin="0,0,0,0" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Verileri Kaydet -->
+                <Border StrokeThickness="1" Stroke="#E3E4E8" Padding="20" BackgroundColor="White" x:Name="verileriAktar" IsVisible="False" >
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Sistem Verisi Kaydet"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="#333"
+                               HorizontalOptions="Start" />
+                        <Label Text="Sistem verilerini senkronize etmek için aşağıdaki butona tıklayın."
+                               FontSize="16"
+                               TextColor="#777"
+                               LineBreakMode="WordWrap" />
+                        <Button Text="Sekronize Et"
+                                FontSize="18" Clicked="Button_Clicked"
+                                BackgroundColor="#4CAF50"
+                                TextColor="White"
+                                Padding="15"
+                                CornerRadius="10"
+                                HorizontalOptions="StartAndExpand"
+                                Command="{Binding SaveSystemDataCommand}" />
+
+                        <!--<Label Text="Veriler sunucuya aktarılıyor, lütfen biraz bekleyin !! İşlem bitiminde tamamalanma uyarısı çıkacaktır"
+                         FontSize="28"
+                         FontAttributes="Bold"
+                         HorizontalOptions="Center"
+                         TextColor="Red" x:Name="uyari"
+                         VerticalOptions="Start" />-->
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <StackLayout Grid.Row="2" >
+           
+        </StackLayout>
+        
+        
+        <!-- Alt Bilgi -->
+        <!--<Label Grid.Row="2" Text="© 2024 MyApp - Tüm Hakları Saklıdır."
+               FontSize="14"
+               TextColor="#bbb"
+               HorizontalOptions="Center" />-->
+    </Grid>
+</ContentPage>

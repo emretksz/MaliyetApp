@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="MaliyetApp.Views.ProductPage.MaterialPopup"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" 
+               Size="400,600"
+               >
+    <ScrollView>
+        <StackLayout Padding="15" Spacing="15" BackgroundColor="#F8FAFC" >
+        <!-- Popup Başlık -->
+        <Label Text="Ürün Seçimi"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="Black" />
+
+        <!-- Ürün Listesi -->
+        <CollectionView x:Name="list1"
+                        ItemsSource="{Binding Material}"
+                        SelectionMode="Single"
+                        BackgroundColor="#f9f9f9"
+                        VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BorderColor="#e0e0e0" CornerRadius="10" >
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" RowSpacing="10">
+                            <!-- Ürün Görseli -->
+                                <!--<Image Source="https://w7.pngwing.com/pngs/271/965/png-transparent-textile-computer-icons-industry-fondazione-asphi-onlus-upholstery-sewing-needle-miscellaneous-label-technic.png"
+                       WidthRequest="50"
+                       HeightRequest="50"
+                       Aspect="AspectFit" Grid.Column="0"
+                      />-->
+                            <!-- Ürün Bilgileri -->
+                            <VerticalStackLayout Grid.Column="0" Padding="10,0,0,0" >
+                                <Label Text="{Binding Name}" FontAttributes="Bold" TextColor="Black" />
+                            </VerticalStackLayout>
+                            <!-- Seçim Kutusu -->
+                                <CheckBox IsChecked="False" Grid.Column="1" Grid.Row="0" BackgroundColor="{OnIdiom Desktop=Wheat}"  Color="{OnIdiom Desktop=Wheat}" CheckedChanged="CheckBox_CheckedChanged"
+                          VerticalOptions="Center"  />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!-- Alt Butonlar -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Button Text="Seç" BackgroundColor="#4CAF50" TextColor="White" Clicked="Button_Clicked"  />
+            <Button Text="İptal" BackgroundColor="#F44336" TextColor="White" Clicked="Button_Clicked_1" />
+        </HorizontalStackLayout>
+    </StackLayout>
+    </ScrollView>
+</toolkit:Popup>

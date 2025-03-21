@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MaliyetApp.Views.ProductPage.UpdateProduct"
+              xmlns:handlers="clr-namespace:MaliyetApp.Libs.Handlers"
+             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Core;assembly=CommunityToolkit.Maui.Core"
+             xmlns:template="clr-namespace:MaliyetApp.Views.ProductPage.Template"
+             NavigationPage.HasBackButton="True"
+              NavigationPage.HasNavigationBar="True"
+             NavigationPage.IconColor="#F8FAFC"
+             BackgroundColor="#F8FAFC"
+             xmlns:model="clr-namespace:MaliyetApp.Libs.Models"
+             xmlns:localTemplate="clr-namespace:MaliyetApp.Controllers.MaterialItemSelector"
+             Title="">
+    <ContentPage.ToolbarItems >
+        <!-- TabBar butonu -->
+        <ToolbarItem 
+          Text="KAPAT"
+          IconImageSource="backbutton.png" 
+          Order="Primary" 
+          Priority="0"
+          Clicked="ToolbarItem_Clicked"
+
+        />
+    </ContentPage.ToolbarItems>
+
+   
+    <ContentPage.Resources>
+        <DataTemplate x:Key="desktop" >
+            <template:MaterialItems></template:MaterialItems>
+        </DataTemplate>
+        <DataTemplate x:Key="phone" >
+            <template:MaterialItemsPhone></template:MaterialItemsPhone>
+        </DataTemplate>
+        <localTemplate:MaterialTemplateSelector  x:Key="MaterialTemplateSelector" DesktopTemplate="{StaticResource desktop}"  PhoneTemplate="{StaticResource phone}" />
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <!--<StackLayout>
+        </StackLayout>-->
+    
+    <Grid RowDefinitions="Auto,*">
+            <Label
+                Margin="0,20"
+                FontSize="30"
+                HorizontalOptions="Center"
+                Text="MALİYET İŞLEMLERİ" TextDecorations="Underline" IsVisible="{OnIdiom Desktop=True, Phone=False, Tablet=False}"/>
+                <HorizontalStackLayout Spacing="20" Padding="10,10,0,10" Background="#EFF3EA">
+
+                    <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                        <Label 
+                             Text="€:" 
+                             FontAttributes="Bold" 
+                                FontSize="{OnIdiom Desktop=20, Phone=14, Tablet=14}"
+                             VerticalOptions="Center" 
+                             HorizontalOptions="StartAndExpand"
+                             Padding="12,0,0,0"/>
+                        <Entry 
+                          HeightRequest="{OnIdiom Desktop=40, Phone=60, Tablet=60}" 
+                           WidthRequest="{OnIdiom Desktop=80, Phone=55, Tablet=55}" 
+                           FontSize="{OnIdiom Desktop=20, Phone=14, Tablet=14}"
+                            
+                            x:Name="Euro_"
+                             Keyboard="Numeric" TextChanged="Entry_TextChanged"
+                             HorizontalOptions="FillAndExpand" 
+                             VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                        <Label 
+                           Text="$:" 
+                           FontAttributes="Bold" 
+          FontSize="{OnIdiom Desktop=20, Phone=14, Tablet=14}"
+                            VerticalOptions="Center"  
+                           HorizontalOptions="StartAndExpand"
+                           Padding="0,0,0,0"/>
+                        <Entry 
+                                HeightRequest="{OnIdiom Desktop=40, Phone=60, Tablet=60}"                          
+          WidthRequest="{OnIdiom Desktop=80, Phone=55, Tablet=55}" 
+          FontSize="{OnIdiom Desktop=20, Phone=14, Tablet=14}" 
+                            x:Name="Dolar_"
+                           Keyboard="Numeric"
+                           HorizontalOptions="FillAndExpand" TextChanged="Entry_TextChanged_1"
+                           VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand">
+                        <Switch x:Name="toggleSwitch" 
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </HorizontalStackLayout>
+
+
+
+
+
+                <!--<Label
+Margin="0,20"
+FontSize="30"
+HorizontalOptions="Center"
+Text="MALİYET İŞLEMLERİ" TextDecorations="Underline" IsVisible="{OnIdiom Desktop=true, Phone=false}" />-->
+                <!--<HorizontalStackLayout Spacing="20" Padding="10" BackgroundColor="#F7F7F7" >
+                    --><!-- Euro Alanı --><!--
+                    <Frame CornerRadius="10" BackgroundColor="White" Padding="10" HorizontalOptions="FillAndExpand" HeightRequest="60">
+                        <HorizontalStackLayout Spacing="10">
+                        <Label 
+                        Text="€" 
+                        FontSize="{OnIdiom Desktop=20, Phone=16}" 
+                        FontAttributes="Bold" 
+                        VerticalOptions="Center" 
+                        TextColor="Black" />
+                                <Entry 
+                        Placeholder="Euro Kuru" x:Name="Euro_"
+                        Keyboard="Numeric" 
+                        FontSize="{OnIdiom Desktop=20, Phone=16}" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Center" /> 
+                        </HorizontalStackLayout>
+                    </Frame>
+
+                    --><!-- Dolar Alanı --><!--
+                    <Frame CornerRadius="10" BackgroundColor="White" Padding="10" HorizontalOptions="FillAndExpand"  HeightRequest="60">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label 
+                            Text="$" 
+                            FontSize="{OnIdiom Desktop=20, Phone=16}" 
+                            FontAttributes="Bold" 
+                            VerticalOptions="Center" 
+                            TextColor="Black" />
+                                        <Entry 
+                            Placeholder="Dolar Kuru"
+                            Keyboard="Numeric" 
+                            FontSize="{OnIdiom Desktop=20, Phone=16}" 
+                            HorizontalOptions="FillAndExpand" x:Name="Dolar_"
+                            VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Frame>
+                    <Switch x:Name="toggleSwitch" 
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand" />
+                </HorizontalStackLayout>-->
+
+                <!--<HorizontalStackLayout Spacing="20" Padding="10,10,0,10" Background="#EFF3EA">
+                    --><!-- Euro Alanı -->
+                    <!--</Frame>
+<Frame CornerRadius="55" BackgroundColor="#f5f5f5" Padding="20" Margin="0">--><!--
+
+                    <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                        --><!--<Label 
+             Text="€:" 
+             FontAttributes="Bold" 
+               FontSize="{OnIdiom Desktop=20, Phone=14}"
+             VerticalOptions="Center" 
+             HorizontalOptions="StartAndExpand"
+             Padding="12,0,0,0"/>--><!--
+                        <Button IsEnabled="False"  Text="€" FontSize="{OnIdiom Phone=14, Desktop=20}" FontAttributes="Bold"
+                    TextColor="Black" HeightRequest="{OnIdiom Phone=40, Desktop=50}"  CornerRadius="5" Padding="15,10" Background="LightGray"  />
+                        <Entry  
+             HeightRequest="{OnIdiom Desktop=40, Phone=60}" 
+             WidthRequest="{OnIdiom Desktop=80, Phone=50}" 
+             FontSize="{OnIdiom Desktop=20, Phone=14}" x:Name="Euro_"
+             Keyboard="Numeric" TextChanged="Entry_TextChanged"
+             HorizontalOptions="FillAndExpand"
+             VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        --><!--<Label 
+           Text="$:" 
+           FontAttributes="Bold" 
+             FontSize="{OnIdiom Desktop=20, Phone=14}"
+           VerticalOptions="Center"  
+           HorizontalOptions="StartAndExpand"
+           Padding="0,0,0,0"/>--><!--
+                        <Button IsEnabled="False" Text="$:" FontSize="{OnIdiom Phone=14, Desktop=20}" FontAttributes="Bold"
+     TextColor="Black" HeightRequest="{OnIdiom Phone=40, Desktop=50}" CornerRadius="5" Padding="15,10" Background="LightGray"  />
+                        <Entry  
+            HeightRequest="{OnIdiom Desktop=40, Phone=60}"                          
+            WidthRequest="{OnIdiom Desktop=80, Phone=55}" 
+            FontSize="{OnIdiom Desktop=20, Phone=14}"  x:Name="Dolar_"
+           Keyboard="Numeric"
+           HorizontalOptions="FillAndExpand" TextChanged="Entry_TextChanged_1"
+           VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal"  Spacing="10" HorizontalOptions="CenterAndExpand">
+                        <Switch x:Name="toggleSwitch" 
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+
+                </HorizontalStackLayout>-->
+
+
+
+
+            <ScrollView x:Name="sales1"
+                 Grid.Row="1"
+                 HorizontalScrollBarVisibility="Never">
+                <Grid
+            Margin="0,20"
+            ColumnSpacing="12"
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+            RowSpacing="16">
+                    <Border Grid.Row="0"  HorizontalOptions="CenterAndExpand">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="25"></RoundRectangle>
+                        </Border.StrokeShape>
+                        <Image x:Name="SelectedImage" 
+                                     WidthRequest="{OnIdiom Desktop=200,Phone=100,Tablet=100}" 
+                                      HeightRequest="{OnIdiom Desktop=200,Phone=100,Tablet=100}"   
+                                   Source="{Binding   Product.ImageURL}"
+                                    Aspect="AspectFill" HorizontalOptions="CenterAndExpand"
+                                    BackgroundColor="LightGray">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" ></TapGestureRecognizer>
+                            </Image.GestureRecognizers>
+                        </Image >
+                    </Border>
+
+                    <Border Grid.Row="1"
+                            Padding="20,5" >
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="MARKA  : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand"
+                                    HeightRequest="42" Margin="10,0,0,0" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"  TextColor="{DynamicResource BaseTextColor}" 
+                                    Placeholder="MARKA GİRİNİZ" x:Name="marka"  Text="{Binding Product.Brand}"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                   />
+                        </StackLayout>
+                    </Border>
+
+
+
+                    <Border
+                              Padding="20,5" Grid.Row="2">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="MODEL NUMARASI   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                                  HeightRequest="42" Margin="10,0,0,0" TextColor="{DynamicResource BaseTextColor}" 
+                                  Placeholder="MODEL NUMARASI" x:Name="modelNu" Text="{Binding Product.ModelNumber}"   Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                 />
+                        </StackLayout>
+                    </Border>
+                    <Border
+                             Padding="20,5" Grid.Row="3">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="MODEL AÇIKLAMA   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                                 HeightRequest="42" Margin="10,0,0,0"  TextColor="{DynamicResource BaseTextColor}" 
+                                 Placeholder="MODEL AÇIKLAMA"  x:Name="modelAciklama" Text="{Binding Product.ModelDescription}"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                />
+                        </StackLayout>
+                    </Border>
+                    <Border
+                                     Padding="20,5" Grid.Row="4">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text=" AÇIKLAMA   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                                      HeightRequest="42" Margin="10,0,0,0"  TextColor="{DynamicResource BaseTextColor}" 
+                                      Placeholder="AÇIKLAMA"  x:Name="aciklama" Text="{Binding Product.Description}"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                     />
+                        </StackLayout>
+                    </Border>
+
+                    <Border
+                                 Padding="20,5" Grid.Row="5">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="YAŞ/SİZE   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                                     HeightRequest="42" Margin="10,0,0,0"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                     Placeholder="YAŞ/SİZE GİRİNİZ" x:Name="yassize" TextColor="{DynamicResource BaseTextColor}"  Text="{Binding Product.YasSize}"
+                                    />
+                        </StackLayout>
+                    </Border>
+
+                    <Border
+                          Padding="20,5" Grid.Row="6">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="İÇ KUMAŞ ADI   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                              HeightRequest="42" Margin="10,0,0,0"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                              Placeholder="İÇ KUMAŞ ADI" x:Name="ickumasadi" TextColor="{DynamicResource BaseTextColor}"  Text="{Binding Product.InnerFabricName}"
+                             />
+                        </StackLayout>
+                    </Border>
+                    <Border
+                          Padding="20,5" Grid.Row="7">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="İÇ KUMAŞ İÇERİĞİ   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                              HeightRequest="42" Margin="10,0,0,0"
+                              Placeholder="İÇ KUMAŞ İÇERİĞİ:" x:Name="ickumasicerigi" TextColor="{DynamicResource BaseTextColor}"  Text="{Binding Product.InnerFabricContent}"
+                             />
+                        </StackLayout>
+                    </Border>
+                    <Border
+                          Padding="20,5" Grid.Row="8">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="İÇ KUMAŞ TEDARİĞİ   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                              HeightRequest="42" Margin="10,0,0,0"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                              Placeholder="İÇ KUMAŞ TEDARİĞİ:" x:Name="ickumastedarigi" TextColor="{DynamicResource BaseTextColor}" Text="{Binding Product.InnerFabricSupply}"
+                              />
+                        </StackLayout>
+                    </Border>
+
+
+                    <Border
+                            Padding="20,5" Grid.Row="9">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="DIŞ KUMAŞ ADI   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                                HeightRequest="42" Margin="10,0,0,0"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                Placeholder="DIŞ KUMAŞ ADI"  x:Name="diskumasadi" TextColor="{DynamicResource BaseTextColor}"  Text="{Binding Product.OuterFabricName}"
+                                />
+                        </StackLayout>
+                    </Border>
+                    <Border
+                            Padding="20,5" Grid.Row="10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="DIŞ KUMAŞ İÇERİĞİ   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                                HeightRequest="42" Margin="10,0,0,0"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                                Placeholder="DIŞ KUMAŞ İÇERİĞİ" x:Name="diskumasicerigi" TextColor="{DynamicResource BaseTextColor}" Text="{Binding Product.OuterFabricContent}"
+                            />
+                        </StackLayout>
+                    </Border>
+                    <Border
+                        Padding="20,5" Grid.Row="11">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="DIŞ KUMAŞ TEDARİĞİ   : " FontAttributes="Bold" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}" VerticalOptions="Center"></Label>
+                            <handlers:BorderlessEntry HorizontalOptions="FillAndExpand" FontSize="{OnIdiom Desktop=18, Phone=11, Tablet=11}"
+                            HeightRequest="42" Margin="10,0,0,0"  Focused="OnEntryFocused"  Unfocused="OnEntryUnfocused"
+                            Placeholder="DIŞ KUMAŞ TEDARİĞİ"  x:Name="diskumastedarigi" TextColor="{DynamicResource BaseTextColor}"   Text="{Binding Product.OuterFabricSupply}"
+                          />
+                        </StackLayout>
+                    </Border>
+
+
+                    <Button HorizontalOptions="CenterAndExpand"
+                            Grid.Row="12"
+                            Margin="0,10" WidthRequest="{OnIdiom Desktop=200, Phone=120, Tablet=120}"
+                
+                                         Background="Blue" 
+                            CornerRadius="14" x:Name="güncelle"
+                                FontSize="{OnIdiom Desktop=18, Phone=14, Tablet=14}"
+                            FontAttributes="Bold"
+                            HeightRequest="{OnIdiom Desktop=50, Phone=38, Tablet=38}"
+                            Text="Güncelle" Clicked="Button_Clicked"
+                            TextColor="{DynamicResource White}" />
+                </Grid>
+            </ScrollView>
+            <ScrollView x:Name="product1" HorizontalScrollBarVisibility="Never" Grid.Row="2"  IsVisible="False"     VerticalOptions="FillAndExpand"     HorizontalOptions="Fill"        BackgroundColor="Transparent"> 
+
+                    <Grid Grid.Row="12"  
+                                 ColumnSpacing="12"
+                                 RowSpacing="16">
+                        <Grid.Margin>
+                            <OnIdiom x:TypeArguments="Thickness">
+                                <OnIdiom.Phone>0</OnIdiom.Phone>
+                                <OnIdiom.Desktop>0,20</OnIdiom.Desktop>
+                            </OnIdiom>
+                        </Grid.Margin>
+                        <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                   
+                                <StackLayout  Grid.Row="0"
+                                            Padding="5,10"
+                                            Spacing="20"
+                                            VerticalOptions="StartAndExpand">
+                                    <!-- BAŞLIKKK -->
+                            <!--<Grid RowDefinitions="Auto,Auto,Auto" Margin="-15" ColumnDefinitions="*,*,*,*,*"  BackgroundColor="#F5F5F5">-->
+                                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*,*,Auto">
+
+
+                                    <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="0"  Padding="10" HorizontalOptions="Center">
+                                <Label Text="Kur" IsVisible="{OnIdiom Desktop=true,Phone=false,Tablet=false}" Padding="15,10"  FontSize="24" FontAttributes="Bold"></Label>
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="0" Grid.Column="1" Spacing="15" Padding="20"  Orientation="Horizontal">
+                                <Label Text="Malzeme" TextDecorations="Underline"  FontSize="{OnIdiom Desktop=24,Phone=14,Tablet=14}" FontAttributes="Bold" VerticalOptions="Center" />
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="0" Grid.Column="5" Spacing="15" Padding="20"  Orientation="Horizontal">
+                                <Button Clicked="OnSubmitPopup" Text="➕ Malzeme Ekle"  HeightRequest="{OnIdiom Phone=38,Tablet=38}" FontSize="{OnIdiom Desktop=24,Phone=14,Tablet=14}" Background="Blue"></Button>
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" Grid.Row="1" Margin="0" Grid.ColumnSpan="5" ></BoxView>
+
+                                    </Grid>
+                            <!-- BAŞLIKKK -->
+
+                                    <!-- Malzeme listesi -->
+                            <!--<CollectionView  x:Name="materialList"  ItemsSource="{Binding SaleDetail}" BackgroundColor="#F5F5F5">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout ItemSpacing="12" Orientation="Vertical" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <template:MaterialItems />
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>-->
+                            <CollectionView  x:Name="materialList"  ItemTemplate="{StaticResource MaterialTemplateSelector}"></CollectionView>
+
+
+                            <!--<Grid RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,-15,0,0"  ColumnDefinitions="*,*,*,*,*"   BackgroundColor="#F5F5F5">
+                                        --><!-- Para Birimi Seçimi --><!--
+                                        <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Spacing="20" Padding="10" HorizontalOptions="Center">
+                                        </StackLayout>
+
+                                        --><!-- Birim Girişi ve Fiyat Alanları --><!--
+                                        <StackLayout Grid.Row="0" Grid.Column="4" Spacing="15" HeightRequest="50" Orientation="Horizontal" HorizontalOptions="Center">
+                                            <Button Clicked="Button_Clicked_1" Text="Hesapla" Background="Red" ></Button>
+                                            <Label Text="Maliyet: "  FontSize="18" FontAttributes="Bold"  VerticalOptions="Center"   />
+                                             <Label x:Name="totalLabel" Text="{Binding GenelToplam , StringFormat='{0:F2}'}"  FontSize="18" FontAttributes="Bold"  VerticalOptions="Center" Padding="10" BackgroundColor="#f1f1f1"  />
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="0" Grid.Column="3" Spacing="15"  Orientation="Horizontal">
+                                            <Label Text="Kar Oranı" FontSize="18" FontAttributes="Bold" TextDecorations="Underline"  VerticalOptions="Center"   />
+                                    <Entry   TextChanged="Entry_TextChanged_2" Placeholder="Kar" FontSize="18" x:Name="karEntry"  Text="{Binding KarOrani}" ></Entry>
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="2" Spacing="15"  Orientation="Horizontal">
+                                    <Label Text="{Binding SatisFiyati , StringFormat='{0:F2}'}" x:Name="satisFiyati" FontSize="18" FontAttributes="Bold"  VerticalOptions="Center"   />
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="0" Grid.Column="0" HeightRequest="50"   Spacing="20"  Orientation="Horizontal">
+                                            <Button Text="İşlemi Tamamla" FontAttributes="Bold" BackgroundColor="DarkGreen" Clicked="Button_Clicked_2" ></Button>
+                                        </StackLayout>
+
+                                        <BoxView HeightRequest="1" Grid.ColumnSpan="5" Grid.Row="3"></BoxView>
+                                    </Grid>-->
+
+                        <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,*,*,*,*"  VerticalOptions="FillAndExpand" HorizontalOptions="{OnIdiom Desktop=EndAndExpand,Phone=Start,Tablet=Start}" >
+                                <!-- Para Birimi Seçimi -->
+                                <!--<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Spacing="20" Padding="10" HorizontalOptions="Center">
+                                                </StackLayout>-->
+
+                                <!-- Birim Girişi ve Fiyat Alanları -->
+
+
+                                <StackLayout Grid.Row="0" Grid.Column="0" Spacing="15" HeightRequest="50" Orientation="Horizontal" HorizontalOptions="Center">
+                                <Button Clicked="Button_Clicked_1" Text="Hesapla"  Background="Red" HeightRequest="{OnIdiom Phone=38,Tablet=38}"></Button>
+                                <Label  Text="{Binding GenelToplam , StringFormat='{0:F2}'}" x:Name="totalLabel" FontSize="{OnIdiom Desktop=18,Phone=12,Tablet=12}" FontAttributes="Bold"  VerticalOptions="Center" Padding="10" BackgroundColor="#f1f1f1"  />
+                                </StackLayout>
+
+                            <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{OnIdiom Desktop=1,Phone=2,Tablet=2}" Spacing="15"  Orientation="Horizontal"  HorizontalOptions="{OnIdiom Desktop=Center,Phone=Start,Tablet=Start}">
+                                <Label Text="Kar Oranı" FontSize="{OnIdiom Desktop=18,Phone=12,Tablet=12}" FontAttributes="Bold" TextDecorations="Underline"  VerticalOptions="Center"   />
+                                    <Entry   TextChanged="Entry_TextChanged_2" Placeholder="Kar"  x:Name="karEntry" Text="{Binding KarOrani}" ></Entry>
+                                </StackLayout>
+                            <StackLayout Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="{OnIdiom Desktop=3,Phone=2,Tablet=2}" Spacing="15"  Orientation="Horizontal"  HorizontalOptions="{OnIdiom Desktop=Center,Phone=Start,Tablet=Start}">
+                                    <StackLayout.Padding>
+                                        <OnIdiom x:TypeArguments="Thickness">
+                                            <OnIdiom.Phone>0</OnIdiom.Phone>
+                                            <OnIdiom.Desktop>0,0,100,0</OnIdiom.Desktop>
+                                        </OnIdiom>
+                                    </StackLayout.Padding>
+                                <Label  Text="{Binding SatisFiyati , StringFormat='{0:F2}'}"  x:Name="satisFiyati" FontSize="{OnIdiom Desktop=18,Phone=12,Tablet=12}" FontAttributes="Bold"  VerticalOptions="Center"   />
+                                </StackLayout>
+
+                            <StackLayout Grid.Row="3" Grid.Column="0" HeightRequest="50"   Spacing="20" Margin="0,20,0,10" Orientation="Horizontal" HorizontalOptions="{OnIdiom Desktop=Center,Phone=Start,Tablet=Start}">
+                                <Button Text="İşlemi Tamamla" HeightRequest="{OnIdiom Phone=38,Tablet=38}" FontAttributes="Bold" BackgroundColor="DarkGreen" FontSize="{OnIdiom Desktop=18,Phone=12,Tablet=12}" Clicked="Button_Clicked_2" x:Name="islemiTamamla" ></Button>
+                                </StackLayout>
+
+                                <BoxView HeightRequest="1" Grid.ColumnSpan="5" Grid.Row="4"></BoxView>
+                            </Grid>
+
+                        </StackLayout>
+
+                    </Grid>
+                </ScrollView>
+
+        </Grid>
+
+    </ScrollView>
+</ContentPage>

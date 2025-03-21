@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MaliyetApp.Views.ExportPage.ProductListPopup"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               HorizontalOptions="Center" CanBeDismissedByTappingOutsideOfPopup="False"
+               VerticalOptions="Center">
+        <toolkit:Popup.Size>
+            <Size Width="1200" Height="800" />
+        </toolkit:Popup.Size>
+    <ScrollView >
+        <VerticalStackLayout Padding="15" Spacing="15" BackgroundColor="#F8FAFC"  >
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+            <!-- Popup Başlık -->
+            <Label Text="Ürün Seçimi"
+           FontSize="24"
+           FontAttributes="Bold"
+           HorizontalOptions="Center"
+           TextColor="Black" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand"  >
+                <Label Text="Ürün Ara: " FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Padding="20,0,20,0"></Label>
+                <Border >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="13" />
+                    </Border.StrokeShape>
+                    <SearchBar   IsEnabled="True"  x:Name="searchbar"  FontSize="20"   HorizontalOptions="FillAndExpand" Margin="0" WidthRequest="300"  ></SearchBar>
+                </Border>
+                <Border 
+                      HorizontalOptions="CenterAndExpand"
+                        Padding="8"
+                        HeightRequest="48"
+                        StrokeThickness="1.5"
+                        WidthRequest="48">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="11" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Aramayap"></TapGestureRecognizer>
+                    </Border.GestureRecognizers>
+                    <Image
+        Aspect="AspectFit"
+        HeightRequest="25"
+        HorizontalOptions="Center"
+        VerticalOptions="Center" Source="search.png">
+
+                    </Image>
+                </Border>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Border HorizontalOptions="FillAndExpand" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="13" />
+                    </Border.StrokeShape>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label 
+                                FontAttributes="Bold" 
+                                Padding="10" 
+                                FontSize="25" 
+                                Text="Teklif Başlığı" 
+                                HorizontalOptions="Start" 
+                                VerticalOptions="Center" />
+                        <Editor  
+                                        Background="#E3E4E8" 
+                                        FontAttributes="Bold" 
+                                        x:Name="teklif" 
+                                        FontSize="25" 
+                                        Text="" 
+                                        HeightRequest="50" 
+                                        HorizontalOptions="FillAndExpand" 
+                                        VerticalOptions="Center" />     
+                    </StackLayout>
+                </Border>
+        </StackLayout>
+
+            <StackLayout Orientation="{OnIdiom Desktop=Horizontal,Phone=Vertical,Tablet=Vertical}" HorizontalOptions="FillAndExpand" Padding="10">
+                <!-- Ürün Listesi -->
+                <CollectionView x:Name="list1" 
+              SelectionMode="Single"                  ItemSizingStrategy="MeasureFirstItem"
+
+              BackgroundColor="#f9f9f9"  MaximumHeightRequest="500" Scrolled="list1_Scrolled"  HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10" Margin="5" BorderColor="#e0e0e0" CornerRadius="10" >
+                                <Grid ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="Auto" RowSpacing="10">
+                                    <!-- Ürün Bilgileri -->
+                                    <VerticalStackLayout Grid.Column="0" Padding="0,0,0,0" >
+                                        <Border Margin="0" StrokeThickness="0">
+                                            <Border.StrokeShape>
+                                                <Rectangle RadiusX="30" RadiusY="30" />
+                                            </Border.StrokeShape>
+                                            <!--<Image
+                                  Aspect="AspectFill"
+                                  HeightRequest="60"
+                                      WidthRequest="60" 
+                                  Source="{Binding Product.ImageURL}">
+                                            </Image>-->
+                                        </Border>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="1" Padding="10,0,0,0" >
+                                        <Label Text="{Binding Product.Brand}" LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="2" Padding="10,0,0,0" >
+                                        <Label Text="{Binding  Product.ModelNumber}" LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="3" Padding="10,0,0,0" >
+                                        <Label Text="{Binding Product.YasSize}" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="4" Padding="10,0,0,0" >
+                                        <Label Text="{Binding SatisFiyati, StringFormat='{0:F2}'}" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <!-- Seçim Kutusu -->
+                                    <!--<CheckBox IsChecked="False" Grid.Column="5" Grid.Row="0" BackgroundColor="Wheat" Color="Wheat" BindingContextChanged="CheckBox_BindingContextChanged"    CheckedChanged="CheckBox_CheckedChanged"
+                VerticalOptions="Center"  />-->
+                                        <Button Text="ekle" Grid.Column="5" Grid.Row="0" HeightRequest="28" WidthRequest="58" Background="Blue" Clicked="ListeyeEkle"></Button>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!-- Alt Butonlar -->
+                <CollectionView x:Name="selectList" BackgroundColor="#f9f9f9"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  VerticalScrollBarVisibility="Always" MaximumHeightRequest="500"   ItemSizingStrategy="MeasureFirstItem"
+ >
+                    <!--"-->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10" Margin="5" BorderColor="#e0e0e0" CornerRadius="10">
+                                <Grid ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="Auto" RowSpacing="10">
+                                    <VerticalStackLayout Grid.Column="0" Padding="0">
+                                        <!--<Image Aspect="AspectFill" HeightRequest="60" WidthRequest="60" Source="{Binding Product.ImageURL}" />-->
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="1" Padding="10,0,0,0">
+                                        <Label Text="{Binding Product.Brand}" LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="2" Padding="10,0,0,0">
+                                        <Label Text="{Binding Product.ModelNumber}" LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="3" Padding="10,0,0,0">
+                                        <Label Text="{Binding Product.YasSize}" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="4" Padding="10,0,0,0">
+                                        <Label Text="{Binding SatisFiyati, StringFormat='{0:F2}'}" FontAttributes="Bold" TextColor="Black" />
+                                    </VerticalStackLayout>
+                                    <Button Text="Sil" Command="{Binding .}"  Grid.Column="5" Grid.Row="0" HeightRequest="28" WidthRequest="58"  BackgroundColor="Red" FontSize="15" CornerRadius="24" Clicked="ListedenCikar"></Button>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+              
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Geri" BackgroundColor="Red" Clicked="Geri" x:Name="geri"></Button>
+                <Button Text="İleri" Background="Blue" Clicked="Ileri" x:Name="ileri"></Button>
+            </StackLayout>
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="20" >
+                <Label Text="Teklif Açıklama, Excel'in sonu"></Label>
+                <Editor Background="#E3E4E8"  x:Name="description" WidthRequest="500" HeightRequest="200"></Editor>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="20">
+                <Button Text="Seç" BackgroundColor="#4CAF50" TextColor="White"  Clicked="Kaydet" />
+                <Button Text="İptal" BackgroundColor="#F44336" TextColor="White" Clicked="Iptal"  />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</toolkit:Popup>

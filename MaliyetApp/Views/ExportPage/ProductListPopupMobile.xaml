@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               x:Class="MaliyetApp.Views.ExportPage.ProductListPopupMobile"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+    <toolkit:Popup.Size>
+        <Size Width="400" Height="950" />
+    </toolkit:Popup.Size>
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="10" BackgroundColor="#F8FAFC">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+
+            <!-- Popup Başlık -->
+            <Label Text="Ürün Seçimi"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="Black" />
+
+            <!-- Teklif Başlığı -->
+            <StackLayout Padding="5">
+                <Label Text="Teklif Başlığı" FontAttributes="Bold" FontSize="16" />
+                <Editor x:Name="teklif" FontSize="14" BackgroundColor="#E3E4E8" HeightRequest="40" />
+            </StackLayout>
+            <!-- Arama Barı -->
+            <HorizontalStackLayout Spacing="5" VerticalOptions="Start" HorizontalOptions="StartAndExpand" WidthRequest="{OnIdiom  Phone=240,Tablet=240}"  >
+                <Label Text="Ürün Ara:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" />
+                <SearchBar BackgroundColor="#F8FAFC" 
+                       x:Name="searchbar" 
+                       FontSize="16" 
+                       HorizontalOptions="FillAndExpand" 
+                       Margin="0" 
+                       SearchButtonPressed="searchbar_SearchButtonPressed" 
+                       TextChanged="searchbar_TextChanged_1" 
+                       WidthRequest="150" />
+                <!--<ImageButton Source="search.png" HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent" Clicked="Aramayap" />-->
+            </HorizontalStackLayout>
+
+
+            <!-- Listeler -->
+            <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand">
+                <!-- Ürün Listesi -->
+                <CollectionView x:Name="list1" ItemSizingStrategy="MeasureAllItems" HeightRequest="400">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="5" BorderColor="#e0e0e0" CornerRadius="10">
+                                <Grid ColumnDefinitions="*,*,*,Auto" RowDefinitions="Auto">
+                                    <Label Text="{Binding Product.Brand}" FontAttributes="Bold" MaxLines="1" LineBreakMode="MiddleTruncation" Grid.Column="0" />
+                                    <Label Text="{Binding Product.ModelNumber}" FontSize="14" LineBreakMode="MiddleTruncation" MaxLines="2" Grid.Column="1" />
+                                    <Label Text="{Binding SatisFiyati, StringFormat='{0:F2}'}" Grid.Column="2" />
+                                    <Button Text="Ekle" Grid.Column="3" HeightRequest="50" Clicked="ListeyeEkle" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Alt Butonlar -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button Text="Geri" BackgroundColor="Red" Clicked="Geri"  x:Name="geri"/>
+                    <Button Text="İleri" BackgroundColor="Blue" Clicked="Ileri" x:Name="ileri" />
+                </HorizontalStackLayout>
+              
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Eklenenler" FontSize="14" TextDecorations="Underline" FontAttributes="Bold"></Label>
+                <!-- Seçilen Ürün Listesi -->
+                <CollectionView x:Name="selectList" ItemSizingStrategy="MeasureAllItems" HeightRequest="400" HorizontalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="5" BorderColor="#e0e0e0" CornerRadius="10">
+                                <Grid ColumnDefinitions="*,*,*,Auto" RowDefinitions="Auto">
+                                    <Label Text="{Binding Product.Brand}" MaxLines="1" LineBreakMode="MiddleTruncation"   FontAttributes="Bold" Grid.Column="0" />
+                                    <Label Text="{Binding Product.ModelNumber}" FontSize="14" LineBreakMode="MiddleTruncation" MaxLines="2" Grid.Column="1" />
+                                    <Label Text="{Binding SatisFiyati, StringFormat='{0:F2}'}" Grid.Column="2" />
+                                    <Button Text="Sil" Grid.Column="3" HeightRequest="50" BackgroundColor="Red" Clicked="ListedenCikar" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Açıklama Alanı -->
+            <StackLayout Padding="5">
+                <Label Text="Teklif Açıklaması" FontSize="14" />
+                <Editor x:Name="description" HeightRequest="100" BackgroundColor="#E3E4E8" />
+            </StackLayout>
+
+            <!-- Onay ve İptal -->
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10">
+                <Button Text="Kaydet" BackgroundColor="#4CAF50" TextColor="White" Clicked="Kaydet" x:Name="Kaydet1"  />
+                <Button Text="İptal" BackgroundColor="#F44336" TextColor="White" Clicked="Iptal"  x:Name="Iptal1" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</toolkit:Popup>

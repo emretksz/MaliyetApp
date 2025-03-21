@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MaliyetApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MaliyetApp"
+    xmlns:product="clr-namespace:MaliyetApp.Views.ProductPage"
+        xmlns:exportPage="clr-namespace:MaliyetApp.Views.ExportPage"
+      xmlns:material="clr-namespace:MaliyetApp.Views.MaterialPage"
+      xmlns:settings="clr-namespace:MaliyetApp.Views.SettingPage" Shell.BackgroundColor="#F8FAFC" Shell.ForegroundColor="Red" Shell.NavBarHasShadow="True"
+    Shell.FlyoutBehavior="Disabled" NavigationPage.BackButtonTitle="Geri Dön" NavigationPage.HasBackButton="True"       
+    Title="MaliyetApp">
+    
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="BackButtonStyle">
+                <Setter Property="FontSize" Value="150" />
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="HeightRequest" Value="150" />
+            </Style>
+ 
+        </ResourceDictionary>
+    </Shell.Resources>
+    
+    <TabBar >
+        <ShellContent 
+        Title="Ana Sayfa"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="Ana Sayfa" />
+        <ShellContent 
+              Title="Malzeme Listesi" 
+              ContentTemplate="{DataTemplate material:MaterialList}"
+              Route="Malzeme Listesi" />
+        <ShellContent
+          Title="Teklif Oluştur" 
+          ContentTemplate="{DataTemplate exportPage:CreateExport}"
+          Route="Teklif" />
+        <ShellContent
+            Title="Sistem Ayarları" 
+            ContentTemplate="{DataTemplate settings:AppSettingPage}"
+            Route="Sistem Ayarlari" />
+    </TabBar>
+
+    <!--ShellContent
+      Title="Home"
+      ContentTemplate="{DataTemplate product:CreateProduct}"
+      Route="MainPage" />-->
+</Shell>
