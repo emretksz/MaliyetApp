@@ -50,8 +50,7 @@
 		<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-		<PackageCertificateThumbprint>0EB49B2843241B49E4AA638559F9C9FCB87BD176</PackageCertificateThumbprint>
-		<UserSecretsId>5b47c8f5-bed1-4dc5-81da-6d271e4a8178</UserSecretsId>
+	
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -62,10 +61,7 @@
 	<PropertyGroup>
 		<MonoAndroidResourcePrefix>lib</MonoAndroidResourcePrefix>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-	  <CodesignKey>Apple Development: Created via API (9G6G2JZUA8)</CodesignKey>
-	  <CodesignProvision>VS: WildCard Development</CodesignProvision>
-	</PropertyGroup>
+
 
 	<ItemGroup>
 		<!-- App Icon -->
